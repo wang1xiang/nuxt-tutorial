@@ -224,9 +224,9 @@ module.exports = {
 
 - 使用中间件处理页面访问权限
 
-  创建middleware文件夹，添加authenticated.js和notAuthenticated.js文件
+  创建middleware文件夹，添加authenticated.js和notAuthenticated.js文件，用于控制页面权限
 
-  
+  在login/index.vue添加notAuthenticated中间件，用于控制已登录时跳转到首页，其他路由页面添加authenticated中间件用于验证是否登录
 
 - 
 
