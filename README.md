@@ -633,4 +633,110 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
 ##### 使用GitHub Action实现自动部署
 
-- 
+###### 配置GItHub Access Token
+
+生成：https://github.com/settings/tokens
+
+- github settings --> Developer settings --> Personal access tokens --> Generate new token
+
+- Note --> Select scopes 全选repo，对此仓库操作权限，生成
+
+- 复制token（只显示一次）
+
+  ![image-20210321171700294](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321171700294.png)
+
+配置到项目的Secrets中：https://
+
+- 指定仓库 settings --> Secrets --> New Secret创建
+
+- Name填写和脚本中的名称要一致，value填入刚生成的token
+
+  ![image-20210321171822794](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321171822794.png)
+
+###### 配置GitHub Actions执行脚本
+
+- 在项目根目录创建.github/workflows目录
+
+- 在workflows目录中创建main.yml文件
+
+  ```yml
+  name: Publish And Deploy Demo
+  on:
+  push:
+  tags:
+  - 'v*'
+  
+  jobs:
+  build-and-deploy:
+  runs-on: ubuntu-latest
+  steps:
+  
+  # 下载源码
+  - name: Checkout
+  uses: actions/checkout@realworld-nuxtJS
+  
+  # 打包构建
+  - name: Build
+  uses: actions/setup-node@realworld-nuxtJS
+  - run: npm install
+  - run: npm run build
+  # 将.nuxt static nuxt.config.js package.json package-lock.json pm2.config.json解压到release.tgz
+  - run: tar -zcvf release.tgz .nuxt static nuxt.config.js package.json package-lock.json pm2.config.json
+  
+  # 发布 Release
+  - name: Create Release
+  id: create_release
+  uses: actions/create-release@realworld-nuxtJS
+  env:
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+  with:
+  tag_name: ${{ github.ref }}
+  release_name: Release ${{ github.ref }}
+  draft: false
+  prerelease: false
+  
+  # 上传构建结果到 Release
+  - name: Upload Release Asset
+  id: upload-release-asset
+  uses: actions/upload-release-asset@realworld-nuxtJS
+  env:
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+  with:
+  upload_url: ${{ steps.create_release.outputs.upload_url }}
+  asset_path: ./release.tgz
+  asset_name: release.tgz
+  asset_content_type: application/x-tgz
+  
+  # 部署到服务器
+  - name: Deploy
+  uses: appleboy/ssh-action@realworld-nuxtJS
+  with:
+  host: ${{ secrets.HOST }}
+  username: ${{ secrets.USERNAME }}
+  password: ${{ secrets.PASSWORD }}
+  port: ${{ secrets.PORT }}
+  script: |
+  cd /usr/local/realworld-nuxt
+  wget https://github.com/wang1xiang/nuxt-tutorial/releases/latest/download/release.tgz -O release.tgz
+  tar zxvf release.tgz
+  npm install --production
+  pm2 reload pm2.config.json
+  
+  ```
+
+- 修改配置
+
+  添加secrets参数到github对应仓库
+
+  ![image-20210321173115025](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321173115025.png)
+
+- 配置PM2配置文件
+
+- 提交更新
+
+- 查看自动部署状态
+
+- 访问网站
+
+- 提交更新...
+
