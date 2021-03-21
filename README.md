@@ -466,9 +466,17 @@ layout作为页面根路由，由头部header、子路由<nuxt-child/>和底部f
 
   使用[dayjs](https://github.com/iamkun/dayjs/blob/dev/docs/zh-cn/README.zh-CN.md)，比moment更轻量，封装全局过滤器（在plugins中创建）
 
-  
+- 文章点赞
 
-- 
+  asyncData中请求数据后，设置文章点赞的disabled状态
+
+  ```js
+  articles.forEach(article => article.favoriteDisabled = false)
+  ```
+
+  文章点赞或取消点赞时，需要在请求时处理点赞按钮状态
+
+##### 文章详情
 
 
 

@@ -91,6 +91,7 @@
                   active: article.favorited
                 }"
                 :disabled="article.favoriteDisabled"
+                @click="onFavorite(article)"
               >
                 <i class="ion-heart"></i> {{ article.favoritesCount }}
               </button>
@@ -198,6 +199,7 @@ export default {
     const { data: { articles, articlesCount } } = articleRes
     const { data: { tags } } = tagRes 
     
+    // 设置每个文章的点赞disabeld状态
     articles.forEach(article => article.favoriteDisabled = false)
     return {
       limit,
@@ -220,6 +222,25 @@ export default {
   },
   data () {
     return {
+    }
+  },
+  methods: {
+    // 点赞/取消点赞
+    async onFavorite (article) {
+      // 请求期间将点赞按钮设置为disabled
+      article.favoriteDisabled = true
+      if (article.favorited) {
+        // 取消点赞
+        await deleteFavorite(article.slug)
+        article.favorited = false
+        article.favoritesCount += -1
+      } else {
+        // 添加点赞
+        await addFavorite(article.slug)
+        article.favorited = true
+        article.favoritesCount += 1
+      }
+      article.favoriteDisabled = false
     }
   }
 }
