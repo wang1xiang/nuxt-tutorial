@@ -500,6 +500,12 @@ layout作为页面根路由，由头部header、子路由<nuxt-child/>和底部f
 
 - 通过客户端渲染展示评论列表
 
+##### 发布文章
+
+##### 用户中心
+
+##### 个人中心
+
 ##### 发布部署-打包
 
 Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-started/commands/),用于开发或发布部署
@@ -511,3 +517,120 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 | nuxt start    | 以生产模式启动一个Web服务器 (需要先执行 nuxt build )。       |
 | nuxt generate | 编译应用，并依据路由配置生成对应的HTML文件 (用于静态站点的部署)。 |
 
+部署 Nuxt.js 服务端渲染的应用不能直接使用 nuxt 命令，而应该先进行编译构建nuxt build，然后再启动 Nuxt 服务nuxt start
+
+常见的命令有：
+
+-  --config-file 或 -c : 指定 nuxt.config.js 的文件路径。
+-  --spa 或 -s : 禁用服务器端渲染，使用SPA模式 
+- --unix-socket 或 -n : 指定UNIX Socket的路径。
+
+###### 最简单的部署方式
+
+- 配置Host + Port
+
+  在nuxt.config.js中添加
+
+  ```js
+  // 生产环境服务器
+  server: {
+      host: '0.0.0.0', // 默认localhost 如果配置到生产环境时要设置为0.0.0.0，监听所有网卡地址，不然无法访问
+      port: 3000
+  },
+  ```
+
+- 压缩发布包
+
+  ![image-20210321140231600](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321140231600.png)
+
+  .nuxt目录和static目录以及nuxt配置文件；package.json和package-lock.json是因为需要在服务端安装第三方包
+
+  压缩这五个文件到一个压缩包
+
+- 把发布包传到服务端
+
+  在vs Code终端中链接远程服务器
+
+  ```shell
+  ssh root@106.75.190.29
+  ```
+
+  将压缩包上传到服务器对应地址
+
+  ```shell
+  scp ./xxx.zip root@106.75.190.29:/root/realworld-nuxtjs
+  ```
+
+- 解压
+  unzip 解压
+
+- 安装依赖
+
+  1. 在服务器上安装 nvm   参考: https://github.com/nvm-sh/nvm
+
+     ```shell
+     wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+     ```
+
+  2. 重启ssh终端后, 查看 nvm 版本
+
+     ```shell
+     nvm --version
+     ```
+
+  3. 安装 Node.js lts 长期支持版
+
+     ```shell
+     nvm install --lts
+     ```
+
+  4. 安装依赖
+
+     ```shell
+     cnpm i
+     ```
+
+- 启动服务
+
+  `npm run dev`启动服务
+
+###### 使用PM2启动Node服务
+
+在服务器上是通过`npm run start`命令启动web服务，最终执行的是nodeJs下的相关脚本启动。此时如果退出命令行，服务就会被关闭，导致访问不到，此时就需要让服务在后台运行。
+
+如果使用了 Koa/Express 等 Node.js Web 开发框架，并使用了 Nuxt 作为中间件，可以自定义 Web 服 务器的启动入口：
+
+| 命令                                         | 描述                                                         |
+| -------------------------------------------- | ------------------------------------------------------------ |
+| NODE_ENV=development nodemon server/index.js | 启动一个热加载的自定义 Web 服务器（开发模 式）。             |
+| NODE_ENV=production node server/index.js     | 以生产模式启动一个自定义 Web 服务器 (需要先执行 nuxt build )。 |
+
+##### 自动化部署
+
+- 传统部署
+
+  麻烦，手动构建并发布
+
+- 现代化部署方式（CI/CD）
+
+  1. 本地将更新代码推送到远程仓库
+  2. 将用户更新通知给持续集成/持续部署服务
+     - 拉取最新代码到服务当中
+     - 编译构建
+     - 打包生成release
+     - 将release部署到服务器
+
+  ![image-20210321162548934](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321162548934.png)
+
+##### CI/CD服务
+
+- Jenkins
+- Gitlab CI
+- GitHub Actions
+- Travis CI
+- Circle CI
+- ...
+
+##### 使用GitHub Action实现自动部署
+
+- 

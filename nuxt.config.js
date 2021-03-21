@@ -45,6 +45,12 @@ module.exports = {
       ])
     }
   },
+
+  // 生产环境服务器
+  server: {
+    host: '0.0.0.0', // 默认localhost 如果配置到生产环境时要设置为0.0.0.0，监听所有网卡地址，不然无法访问
+    port: 3000
+  },
   // 注册插件
   plugins: [
     '~/plugins/request.js',
