@@ -1,4 +1,4 @@
-import request from '../utils/request'
+import { request } from '../plugins/request'
 
 // 用户相关接口
 export const login = data => {
