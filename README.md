@@ -478,5 +478,36 @@ layout作为页面根路由，由头部header、子路由<nuxt-child/>和底部f
 
 ##### 文章详情
 
+- 通过getArticle获取文章详情，需要在服务端渲染，请求放入asyncData中
 
+- 使用[markdown-it](https://markdown-it.docschina.org/#%E7%94%A8%E6%B3%95%E7%A4%BA%E4%BE%8B)将markdown格式转为HTML，使用v-html渲染页面
+
+- 展示文章作者相关信息，封装组件`article-meta.vue`，传入article文章详情进行渲染
+
+- 设置页面meta优化SEO，nuxt使用vue-meta更新应用的头部标签Head和html属性，可以在nuxt.config.js中定义，也可以设置个性化特定页面的meta标签
+
+  ```js
+  // 设置页面title和description对SEO非常有用
+  head () {
+      return {
+          title: this.title,
+          meta: [
+              { hid: 'description', name: 'description', content: 'My custom description' }
+          ]
+      }
+  }
+  ```
+
+- 通过客户端渲染展示评论列表
+
+##### 发布部署-打包
+
+Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-started/commands/),用于开发或发布部署
+
+| 命令          | 描述                                                         |
+| ------------- | ------------------------------------------------------------ |
+| nuxt          | 启动一个热加载的Web服务器（开发模式） localhost:3000。       |
+| nuxt build    | 利用webpack编译应用，压缩JS和CSS资源（发布用）。             |
+| nuxt start    | 以生产模式启动一个Web服务器 (需要先执行 nuxt build )。       |
+| nuxt generate | 编译应用，并依据路由配置生成对应的HTML文件 (用于静态站点的部署)。 |
 
