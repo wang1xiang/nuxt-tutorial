@@ -462,6 +462,12 @@ layout作为页面根路由，由头部header、子路由<nuxt-child/>和底部f
      }
      ```
 
+- 处理文章发布时间格式化
+
+  使用[dayjs](https://github.com/iamkun/dayjs/blob/dev/docs/zh-cn/README.zh-CN.md)，比moment更轻量，封装全局过滤器（在plugins中创建）
+
+  
+
 - 
 
 
