@@ -662,65 +662,64 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
   ```yml
   name: Publish And Deploy Demo
   on:
-  push:
-  tags:
-  - 'v*'
+    push:
+      tags:
+        - 'v*'
   
   jobs:
-  build-and-deploy:
-  runs-on: ubuntu-latest
-  steps:
+    build-and-deploy:
+      runs-on: ubuntu-latest
+      steps:
   
-  # 下载源码
-  - name: Checkout
-  uses: actions/checkout@realworld-nuxtJS
+      # 下载源码
+      - name: Checkout
+        uses: actions/checkout@master
   
-  # 打包构建
-  - name: Build
-  uses: actions/setup-node@realworld-nuxtJS
-  - run: npm install
-  - run: npm run build
-  # 将.nuxt static nuxt.config.js package.json package-lock.json pm2.config.json解压到release.tgz
-  - run: tar -zcvf release.tgz .nuxt static nuxt.config.js package.json package-lock.json pm2.config.json
+      # 打包构建
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm install
+      - run: npm run build
+      - run: tar -zcvf release.tgz .nuxt static nuxt.config.js package.json package-lock.json pm2.config.json
   
-  # 发布 Release
-  - name: Create Release
-  id: create_release
-  uses: actions/create-release@realworld-nuxtJS
-  env:
-  GITHUB_TOKEN: ${{ secrets.TOKEN }}
-  with:
-  tag_name: ${{ github.ref }}
-  release_name: Release ${{ github.ref }}
-  draft: false
-  prerelease: false
+      # 发布 Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
   
-  # 上传构建结果到 Release
-  - name: Upload Release Asset
-  id: upload-release-asset
-  uses: actions/upload-release-asset@realworld-nuxtJS
-  env:
-  GITHUB_TOKEN: ${{ secrets.TOKEN }}
-  with:
-  upload_url: ${{ steps.create_release.outputs.upload_url }}
-  asset_path: ./release.tgz
-  asset_name: release.tgz
-  asset_content_type: application/x-tgz
+      # 上传构建结果到 Release
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release.tgz
+          asset_name: release.tgz
+          asset_content_type: application/x-tgz
   
-  # 部署到服务器
-  - name: Deploy
-  uses: appleboy/ssh-action@realworld-nuxtJS
-  with:
-  host: ${{ secrets.HOST }}
-  username: ${{ secrets.USERNAME }}
-  password: ${{ secrets.PASSWORD }}
-  port: ${{ secrets.PORT }}
-  script: |
-  cd /usr/local/realworld-nuxt
-  wget https://github.com/wang1xiang/nuxt-tutorial/releases/latest/download/release.tgz -O release.tgz
-  tar zxvf release.tgz
-  npm install --production
-  pm2 reload pm2.config.json
+      # 部署到服务器
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /root/realworld-nuxtjs
+            wget https://github.com/lipengzhou/realworld-nuxtjs/releases/latest/download/release.tgz -O release.tgz
+            tar zxvf release.tgz
+            npm install --production
+            pm2 reload pm2.config.json
   
   ```
 
@@ -732,9 +731,35 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
 - 配置PM2配置文件
 
+  ```json
+  /**
+   * pm2配置文件
+   * 使用pm2启动服务 名称RealWorld
+   * 脚本是npm 参数是start
+   * 相当于执行npm start命令
+   */
+  {
+    "apps": [
+      {
+        "name": "RealWorld",
+        "script": "npm",
+        "args": "start"
+      }
+    ]
+  }
+  ```
+
 - 提交更新
 
+  ```shell
+  git add .
+  git tag v0.1.0
+  git push origin v0.1.0
+  ```
+
 - 查看自动部署状态
+
+  Actions页签 --> 发布部署-测试 --> Public And Deploy Demo --> build-and-deploy
 
 - 访问网站
 
