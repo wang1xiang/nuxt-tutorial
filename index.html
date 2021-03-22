@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  <title>Document</title>
+  </head>
+  <body>
+    <h1>{{ message }}</h1>
+    <ul>
+      {{ each todos }}
+      <li>{{ $value.title }}</li>
+      {{ /each }}
+    </ul>
+  </body>
+</html>
