@@ -514,6 +514,16 @@ layout作为页面根路由，由头部header、子路由<nuxt-child/>和底部f
 
 ##### 个人中心
 
+通过服务端渲染获取文章列表和个人信息
+
+处理`Edit Profile Setting`和`Follow Eric Simons` 按钮显示与否
+
+通过监听tab的变化加载文章数据
+
+点赞和取消点赞和首页相同
+
+如果是当前用户点击Edit Profile Setting进入设置
+
 ##### 发布部署-打包
 
 Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-started/commands/),用于开发或发布部署

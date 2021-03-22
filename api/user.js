@@ -26,6 +26,13 @@ export const getCurrentUser = () => {
   })
 }
 
+//获取用户个人信息
+export const getProfile = username => {
+  return request({
+    method: 'GET',
+    url: `api/profiles/${username}`,
+  })
+}
 
 // 更新用户信息
 export const updateUser = data => {
