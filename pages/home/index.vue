@@ -198,7 +198,6 @@ export default {
     ])
     const { data: { articles, articlesCount } } = articleRes
     const { data: { tags } } = tagRes 
-    
     // 设置每个文章的点赞disabeld状态
     articles.forEach(article => article.favoriteDisabled = false)
     return {
