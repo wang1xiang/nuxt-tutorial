@@ -136,7 +136,7 @@ module.exports = {
 
 layout作为页面根路由，由头部header、子路由<nuxt-child/>和底部footer组成
 
-![image-20210319132908067](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210319132908067.png)
+![image-20210319132908067](https://upload-images.jianshu.io/upload_images/24129137-cac77ab43bcc0d01.png?imageMogr2/auto-orient/strip|imageView2/2/w/224/format/webp)
 
 ##### 引入[axios](http://www.axios-js.com/) 封装请求模块
 
@@ -311,7 +311,7 @@ layout作为页面根路由，由头部header、子路由<nuxt-child/>和底部f
 
   3. plugins中默认导出一个上下文对象context，包含一下内容
 
-     ![image-20210321101529020](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321101529020.png)
+     ![image-20210321101529020](https://upload-images.jianshu.io/upload_images/24129137-25efa1d74958b307.png?imageMogr2/auto-orient/strip|imageView2/2/w/831/format/webp)
 
      <table>
        <thead>
@@ -541,7 +541,7 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
 -  --config-file 或 -c : 指定 nuxt.config.js 的文件路径。
 -  --spa 或 -s : 禁用服务器端渲染，使用SPA模式 
-- --unix-socket 或 -n : 指定UNIX Socket的路径。
+-  --unix-socket 或 -n : 指定UNIX Socket的路径。
 
 ###### 最简单的部署方式
 
@@ -559,7 +559,7 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
 - 压缩发布包
 
-  ![image-20210321140231600](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321140231600.png)
+  ![image-20210321140231600](https://upload-images.jianshu.io/upload_images/24129137-d24b53e5c10f1599.png?imageMogr2/auto-orient/strip|imageView2/2/w/572/format/webp)
 
   .nuxt目录和static目录以及nuxt配置文件；package.json和package-lock.json是因为需要在服务端安装第三方包
 
@@ -638,7 +638,7 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
      - 打包生成release
      - 将release部署到服务器
 
-  ![image-20210321162548934](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321162548934.png)
+![image-20210321162548934](https://upload-images.jianshu.io/upload_images/24129137-a4bc896dbe5270a3.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
 
 ##### CI/CD服务
 
@@ -661,7 +661,7 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
 - 复制token（只显示一次）
 
-  ![image-20210321171700294](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321171700294.png)
+  ![image-20210321171700294](https://upload-images.jianshu.io/upload_images/24129137-72cab95af427271e.png?imageMogr2/auto-orient/strip|imageView2/2/w/752/format/webp)
 
 配置到项目的Secrets中：https://
 
@@ -669,7 +669,7 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
 - Name填写和脚本中的名称要一致，value填入刚生成的token
 
-  ![image-20210321171822794](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321171822794.png)
+  ![image-20210321171822794](https://upload-images.jianshu.io/upload_images/24129137-536f954ab87747b2.png?imageMogr2/auto-orient/strip|imageView2/2/w/657/format/webp)
 
 ###### 配置GitHub Actions执行脚本
 
@@ -745,7 +745,7 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
   添加secrets参数到github对应仓库
 
-  ![image-20210321173115025](C:\Users\xiang wang\AppData\Roaming\Typora\typora-user-images\image-20210321173115025.png)
+  ![image-20210321173115025](https://upload-images.jianshu.io/upload_images/24129137-380ef344d214f16b.png?imageMogr2/auto-orient/strip|imageView2/2/w/922/format/webp)
 
 - 配置PM2配置文件
 
@@ -783,3 +783,4 @@ Nuxt.js 提供了一系列常用的 [命令](https://zh.nuxtjs.org/docs/2.x/get-
 
 - 提交更新...
 
+[项目地址](https://github.com/wang1xiang/realworld-nuxtJS)
