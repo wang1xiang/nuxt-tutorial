@@ -9,7 +9,6 @@ app.get('/', (req, res) => {
   const data = JSON.parse(fs.readFileSync('./data.json', 'utf-8'))
   // 3. 渲染：数据 + 模板 = 完整结果
   const html = template.render(templateStr, data)
-  console.log(html)
   // 4. 把渲染结果发送给客户端
   res.send(html)
 })
