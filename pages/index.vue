@@ -1,13 +1,24 @@
 <template>
   <div>
-    <h1>hello nuxt.js</h1>
+    <h1>{{ message }}</h1>
+    <ul>
+      <li v-for="(item, index) in todos" :key="index">{{ item.title }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
-// 路由规则 自动扫描pages目录，将里面的组件自动提取为路由配置
+import axios from 'axios'
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  async asyncData () {
+    const { data } = await axios.get('http://localhost:3000/data.json')
+    const message = data.message
+    const todos = data.todos
+    return {
+      message, todos
+    }
+  }
 }
 
 </script>
