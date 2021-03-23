@@ -3,7 +3,7 @@ const http = require('http')
 
 http.get('http://localhost:8082', res => {
   let data = ''
-  res.on('data', chunk => {
+  res.on(data, chunk => {
     data += chunk
   })
   res.on('end', () => {
